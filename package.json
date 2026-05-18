@@ -2,7 +2,7 @@
   "name": "nerdy-vscode",
   "displayName": "Nerdy",
   "description": "Nerd glyph picker for VS Code",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "2kabhishek",
   "icon": "icon.png",
   "repository": {

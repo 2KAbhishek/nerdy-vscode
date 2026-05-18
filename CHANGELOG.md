@@ -1,9 +1,11 @@
 # Change Log
 
-All notable changes to the "nerdy" extension will be documented in this file.
+All notable changes to the "Nerdy" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## [1.0.1] - 2026-05-18
 
-## [1.0]
+- **Instant Picker:** Icons now appear instantly thanks to eager pre-loading and chunked background loading.
+
+## [1.0.0] - 2026-05-18
 
 - Initial release
