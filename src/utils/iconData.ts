@@ -16,14 +16,15 @@ export function getIconData(): Icon[] {
 
     const filePath = path.join(__dirname, '../../data/glyphnames.json');
     const data = fs.readFileSync(filePath, 'utf-8');
-    const jsonData: { [key: string]: { code: string; char: string } } = JSON.parse(data);
+    const jsonData: {[key: string]: {code: string; char: string}} =
+        JSON.parse(data);
 
     cachedIconData = Object.entries(jsonData)
         .filter(([name]) => name !== 'METADATA')
-        .map(([name, { code, char }]) => ({
+        .map(([name, {code, char}]) => ({
             name,
             code,
-            char,
+            char
         }));
 
     return cachedIconData;

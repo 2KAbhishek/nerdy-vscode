@@ -1,7 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-const url = "https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/glyphnames.json";
+const url =
+    'https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/glyphnames.json';
 const filePath = path.join(__dirname, '../data/glyphnames.json');
 
 interface GlyphData {
@@ -21,11 +22,11 @@ async function updateGlyphs(): Promise<void> {
         if (!response.ok) {
             throw new Error(`Failed to fetch: ${response.statusText}`);
         }
-        const data = await response.json() as GlyphData;
-        
+        const data = (await response.json()) as GlyphData;
+
         const dataDir = path.dirname(filePath);
         if (!fs.existsSync(dataDir)) {
-            fs.mkdirSync(dataDir, { recursive: true });
+            fs.mkdirSync(dataDir, {recursive: true});
         }
 
         fs.writeFileSync(filePath, JSON.stringify(data, null, 2));

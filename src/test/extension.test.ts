@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
-import { getIconData } from '../utils/iconData';
+import {getIconData} from '../utils/iconData';
 
 suite('Nerdy Test Suite', () => {
     test('getIconData should return icon data', () => {
@@ -18,8 +18,14 @@ suite('Nerdy Test Suite', () => {
             await extension.activate();
         }
         const commands = await vscode.commands.getCommands(true);
-        assert.ok(commands.includes('nerdy.insertIcon'), 'Command nerdy.insertIcon should be registered');
-        assert.ok(commands.includes('nerdy.insertRecentIcon'), 'Command nerdy.insertRecentIcon should be registered');
+        assert.ok(
+            commands.includes('nerdy.insertIcon'),
+            'Command nerdy.insertIcon should be registered'
+        );
+        assert.ok(
+            commands.includes('nerdy.insertRecentIcon'),
+            'Command nerdy.insertRecentIcon should be registered'
+        );
     });
 
     test('recent icons state should be manageable', async () => {
@@ -28,9 +34,9 @@ suite('Nerdy Test Suite', () => {
         if (!extension) {
             return;
         }
-        const context = await extension.activate() as any;
-        
-        // We can't easily access the internal context from outside, 
+        const context = (await extension.activate()) as any;
+
+        // We can't easily access the internal context from outside,
         // but we can check if the state is being updated by triggering the command if possible
         // or by directly manipulating the state if we can get a handle on it.
         // For integration tests, we'll focus on command availability.
