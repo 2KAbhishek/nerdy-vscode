@@ -13,6 +13,7 @@ export function activate(context: vscode.ExtensionContext) {
             insertRecentIconCommand(context)
         )
     );
+    return context;
 }
 
 export function deactivate() {}

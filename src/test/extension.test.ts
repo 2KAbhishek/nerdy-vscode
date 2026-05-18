@@ -1,6 +1,7 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
-import {getIconData} from '../utils/iconData';
+import {getIconData, Icon} from '../utils/iconData';
+import {updateRecentIcons, RECENT_ICONS_KEY} from '../commands/insertIcon';
 
 suite('Nerdy Test Suite', () => {
     test('getIconData should return icon data', () => {
@@ -34,16 +35,41 @@ suite('Nerdy Test Suite', () => {
         if (!extension) {
             return;
         }
-        const context = (await extension.activate()) as any;
+        const context = (await extension.activate()) as vscode.ExtensionContext;
 
-        // We can't easily access the internal context from outside,
-        // but we can check if the state is being updated by triggering the command if possible
-        // or by directly manipulating the state if we can get a handle on it.
-        // For integration tests, we'll focus on command availability.
+        const icon: Icon = {name: 'test-icon', code: '123', char: 'T'};
+
+        // Clear existing state for testing
+        await context.globalState.update(RECENT_ICONS_KEY, []);
+
+        updateRecentIcons(context, icon);
+
+        const recentIcons = context.globalState.get<Icon[]>(RECENT_ICONS_KEY);
+        assert.ok(recentIcons, 'Recent icons should exist in state');
+        assert.strictEqual(recentIcons.length, 1, 'Should have 1 recent icon');
+        assert.strictEqual(recentIcons[0].name, 'test-icon');
+
+        // Add same icon again - should still be 1
+        updateRecentIcons(context, icon);
+        const recentIconsAfterDup = context.globalState.get<Icon[]>(
+            RECENT_ICONS_KEY
+        );
+        assert.strictEqual(
+            recentIconsAfterDup?.length,
+            1,
+            'Should still have 1 icon after duplicate'
+        );
     });
 
-    test('clipboard should be updated on icon selection', async () => {
-        // This is hard to test without actually selecting from QuickPick in tests
-        // which requires complex automation. We'll stick to unit-like tests where possible.
+    test('clipboard should be updated', async () => {
+        const testChar = '🧪';
+        await vscode.env.clipboard.writeText(''); // Clear
+        await vscode.env.clipboard.writeText(testChar);
+        const clipboardText = await vscode.env.clipboard.readText();
+        assert.strictEqual(
+            clipboardText,
+            testChar,
+            'Clipboard should contain the test character'
+        );
     });
 });
