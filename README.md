@@ -20,7 +20,7 @@
 <a href="https://github.com/2KAbhishek/nerdy-vscode/pulse">
 <img alt="Last Updated" src="https://img.shields.io/github/last-commit/2kabhishek/nerdy-vscode?style=flat&color=e06c75&label="> </a>
 
-<h3>Short Sweet Headline 🎇🎉</h3>
+<h3>Nerd Font glyphs at your fingertips 🎇🎉</h3>
 
 <figure>
   <img src="docs/images/screenshot.png" alt="nerdy-vscode in action">
@@ -30,59 +30,74 @@
 
 </div>
 
-nerdy-vscode is a `<utility/tool>` that allows `<target_audience>` to `<action>`.
+nerdy-vscode is a VS Code extension that allows developers to quickly search and insert Nerd Font glyphs into their code.
 
 ## ✨ Features
 
-- Comes with a ready to go README template
-- Works with [mkrepo](https://github.com/2kabhishek/mkrepo)
+- Search from thousands of Nerd Font icons.
+- Instant insertion into the active editor.
+- High-performance caching of icon data.
 
 ## ⚡ Setup
 
 ### ⚙️ Requirements
 
-- foo >= bar
-- bazz
+- VS Code version 1.96.0 or higher.
+- A Nerd Font installed and configured in VS Code for proper icon rendering.
 
 ### 💻 Installation
 
-Installing nerdy-vscode is as simple as cloning and symlinking!
+#### Marketplace
 
-```bash
-git clone https://github.com/2kabhishek/nerdy-vscode
-cd nerdy-vscode
-<install_command>
-```
+Search for "nerdy-vscode" in the VS Code Extension Marketplace and click **Install**.
+
+#### Local Installation (for development)
+
+If you'd like to run the extension from source:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/2kabhishek/nerdy-vscode
+   cd nerdy-vscode
+   ```
+2. Install dependencies:
+   ```bash
+   pnpm install
+   ```
+3. Open the project in VS Code:
+   ```bash
+   code .
+   ```
+4. Press `F5` to start a new VS Code window with the extension enabled.
 
 ## 🚀 Usage
 
-```bash
-USAGE:
-    nerdy-vscode [FLAGS] [OPTIONS]
-Example:
-    nerdy-vscode
-```
+1. Open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P`).
+2. Type **"Nerdy: Insert Icon"** and press Enter.
+3. Search for the icon you want and select it to insert at your cursor position.
 
 ## 🏗️ What's Next
 
-Planning to add `<feature/module>`.
+- [ ] Implement a "Recently Used" icons section.
+- [ ] Add support for copying to clipboard
 
 ### ✅ To-Do
 
-- [x] Setup repo
-- [ ] Think real hard
-- [ ] Start typing
+- [x] Basic icon search and insertion.
+- [x] Performance optimization with data caching.
+- [ ] Improved icon previews in QuickPick.
+- [ ] Comprehensive unit and integration tests.
 
 ## 🧑‍💻 Behind The Code
 
 ### 🌈 Inspiration
 
-nerdy-vscode was inspired by `<reason/idea>`.
+nerdy-vscode was born out of the need for a quick and easy way to find and insert Nerd Font glyphs without leaving the editor or searching through external websites.
 
 ### 💡 Challenges/Learnings
 
-- The main challenges were `<issue/difficulty>`
-- I learned about `<learning/accomplishment>`
+- **Performance:** Handling thousands of glyphs efficiently in VS Code's QuickPick required implementing a caching layer to avoid redundant disk I/O.
+- **VS Code API:** Learned the nuances of the `showQuickPick` API and how to handle asynchronous user selections effectively.
 
 ### 🧰 Tooling
 
@@ -93,8 +108,7 @@ nerdy-vscode was inspired by `<reason/idea>`.
 
 ### 🔍 More Info
 
-- [shelly](https://github.com/2kabhishek/shelly) — Command line template
-- [tiny-web](https://github.com/2kabhishek/tiny-web) — Web app template
+- [nerdy.nvim](https://github.com/2kabhishek/nerdy.nvim) — Nerdy for Neovim
 
 <hr>
 
