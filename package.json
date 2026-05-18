@@ -14,7 +14,7 @@
     "vscode": "^1.110.0"
   },
   "categories": [
-    "Utilities"
+    "Other"
   ],
   "activationEvents": [],
   "main": "./out/extension.js",
