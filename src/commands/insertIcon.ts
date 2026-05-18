@@ -1,16 +1,63 @@
 import * as vscode from 'vscode';
-import { getIconData, Icon } from '../utils/iconData';
+import { getIconData } from '../utils/iconData';
 
 interface IconQuickPickItem extends vscode.QuickPickItem {
     char: string;
 }
 
+function getIconUri(char: string, color: string): vscode.Uri {
+    const svgSize = 24;
+    const fontSize = 16; 
+
+    const fonts = [
+        "'FiraCode Nerd Font'",
+        "'FiraCode Nerd Font Mono'",
+        "'JetBrainsMono Nerd Font'",
+        "'JetBrainsMono Nerd Font Mono'",
+        "'CaskaydiaCove Nerd Font'",
+        "'CaskaydiaCove Nerd Font Mono'",
+        "'MesloLGS NF'",
+        "'Symbols Nerd Font'",
+        "'Symbols Nerd Font Mono'",
+        "'Hack Nerd Font'",
+        "'Hack Nerd Font Mono'",
+        "'DejaVuSansMono Nerd Font'",
+        "'DejaVuSansMono Nerd Font Mono'",
+        "monospace"
+    ];
+    const fontFamily = fonts.join(", ");
+
+    const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="${svgSize}" height="${svgSize}" viewBox="0 0 ${svgSize} ${svgSize}">
+            <text 
+                x="50%" 
+                y="50%" 
+                font-family="${fontFamily}" 
+                font-size="${fontSize}" 
+                text-anchor="middle" 
+                dominant-baseline="central" 
+                fill="${color}"
+            >
+                ${char}
+            </text>
+        </svg>
+    `.trim();
+
+    return vscode.Uri.parse(`data:image/svg+xml;utf8,${encodeURIComponent(svg)}`);
+}
+
+
 export function insertIconCommand() {
     const iconData = getIconData();
+    
     const iconItems: IconQuickPickItem[] = iconData.map(icon => ({
-        label: `${icon.char} ${icon.name}`,
+        label: icon.name,
         description: icon.code,
         char: icon.char,
+        iconPath: {
+            light: getIconUri(icon.char, '#333333'),
+            dark: getIconUri(icon.char, '#CCCCCC')
+        }
     }));
 
     vscode.window.showQuickPick(iconItems, {
