@@ -8,28 +8,16 @@ interface IconQuickPickItem extends vscode.QuickPickItem {
 
 export const RECENT_ICONS_KEY = 'nerdy.recentIcons';
 const RECENT_ICONS_LIMIT = 100;
+const INITIAL_LOAD_LIMIT = 100;
+
+const itemCache = new Map<string, IconQuickPickItem>();
+let cachedAllItems: IconQuickPickItem[] | null = null;
 
 function getIconUri(char: string, color: string): vscode.Uri {
     const svgSize = 24;
     const fontSize = 16;
-
-    const fonts = [
-        "'FiraCode Nerd Font'",
-        "'FiraCode Nerd Font Mono'",
-        "'JetBrainsMono Nerd Font'",
-        "'JetBrainsMono Nerd Font Mono'",
-        "'CaskaydiaCove Nerd Font'",
-        "'CaskaydiaCove Nerd Font Mono'",
-        "'MesloLGS NF'",
-        "'Symbols Nerd Font'",
-        "'Symbols Nerd Font Mono'",
-        "'Hack Nerd Font'",
-        "'Hack Nerd Font Mono'",
-        "'DejaVuSansMono Nerd Font'",
-        "'DejaVuSansMono Nerd Font Mono'",
-        'monospace'
-    ];
-    const fontFamily = fonts.join(', ');
+    const fontFamily =
+        "'FiraCode Nerd Font', 'FiraCode Nerd Font Mono', 'JetBrainsMono Nerd Font', 'JetBrainsMono Nerd Font Mono', 'CaskaydiaCove Nerd Font', 'CaskaydiaCove Nerd Font Mono', 'MesloLGS NF', 'Symbols Nerd Font', 'Symbols Nerd Font Mono', 'Hack Nerd Font', 'Hack Nerd Font Mono', 'DejaVuSansMono Nerd Font', 'DejaVuSansMono Nerd Font Mono', 'monospace'";
 
     const svg = `
         <svg xmlns="http://www.w3.org/2000/svg" width="${svgSize}" height="${svgSize}" viewBox="0 0 ${svgSize} ${svgSize}">
@@ -52,6 +40,32 @@ function getIconUri(char: string, color: string): vscode.Uri {
     );
 }
 
+function getCachedIconItem(icon: Icon): IconQuickPickItem {
+    let item = itemCache.get(icon.name);
+    if (!item) {
+        item = {
+            label: icon.name,
+            description: icon.code,
+            char: icon.char,
+            iconObj: icon,
+            iconPath: {
+                light: getIconUri(icon.char, '#333333'),
+                dark: getIconUri(icon.char, '#CCCCCC')
+            }
+        };
+        itemCache.set(icon.name, item);
+    }
+    return item;
+}
+
+export function preloadIconData() {
+    globalThis.setTimeout(() => {
+        if (!cachedAllItems) {
+            cachedAllItems = getIconData().map(getCachedIconItem);
+        }
+    }, 100);
+}
+
 export function updateRecentIcons(
     context: vscode.ExtensionContext,
     icon: Icon
@@ -71,7 +85,6 @@ function handleIconSelection(
 ) {
     if (selection && selection.iconObj) {
         const iconChar = selection.char;
-
         vscode.env.clipboard.writeText(iconChar);
         updateRecentIcons(context, selection.iconObj);
 
@@ -89,50 +102,58 @@ function handleIconSelection(
 }
 
 export function insertIconCommand(context: vscode.ExtensionContext) {
-    const iconData = getIconData();
+    const picker = vscode.window.createQuickPick<IconQuickPickItem>();
+    picker.placeholder = 'Select an icon to insert';
+    picker.matchOnDescription = true;
+
     const recentIcons = context.globalState.get<Icon[]>(RECENT_ICONS_KEY, []);
+    const recentItems = recentIcons.map(getCachedIconItem);
 
-    const items: (IconQuickPickItem | vscode.QuickPickItem)[] = [];
-
-    if (recentIcons.length > 0) {
-        items.push({
+    const initialItems: (IconQuickPickItem | vscode.QuickPickItem)[] = [];
+    if (recentItems.length > 0) {
+        initialItems.push({
             label: 'Recently Used',
             kind: vscode.QuickPickItemKind.Separator
         });
-        items.push(
-            ...recentIcons.map((icon) => ({
-                label: icon.name,
-                description: icon.code,
-                char: icon.char,
-                iconObj: icon,
-                iconPath: {
-                    light: getIconUri(icon.char, '#333333'),
-                    dark: getIconUri(icon.char, '#CCCCCC')
-                }
-            }))
-        );
+        initialItems.push(...recentItems);
     }
 
-    items.push({label: 'All Icons', kind: vscode.QuickPickItemKind.Separator});
-    items.push(
-        ...iconData.map((icon) => ({
-            label: icon.name,
-            description: icon.code,
-            char: icon.char,
-            iconObj: icon,
-            iconPath: {
-                light: getIconUri(icon.char, '#333333'),
-                dark: getIconUri(icon.char, '#CCCCCC')
-            }
-        }))
-    );
+    initialItems.push({
+        label: 'All Icons',
+        kind: vscode.QuickPickItemKind.Separator
+    });
 
-    vscode.window
-        .showQuickPick(items as IconQuickPickItem[], {
-            placeHolder: 'Select an icon to insert',
-            matchOnDescription: true
-        })
-        .then((selection) => handleIconSelection(selection, context));
+    const allIcons = getIconData();
+    const quickStartItems = allIcons
+        .slice(0, INITIAL_LOAD_LIMIT)
+        .map(getCachedIconItem);
+
+    picker.items = [...initialItems, ...quickStartItems] as IconQuickPickItem[];
+
+    if (!cachedAllItems) {
+        picker.busy = true;
+    }
+
+    picker.show();
+
+    picker.onDidAccept(() => {
+        const selection = picker.selectedItems[0];
+        handleIconSelection(selection, context);
+        picker.hide();
+    });
+
+    picker.onDidHide(() => picker.dispose());
+
+    globalThis.setTimeout(() => {
+        if (!cachedAllItems) {
+            cachedAllItems = allIcons.map(getCachedIconItem);
+        }
+        picker.items = [
+            ...initialItems,
+            ...cachedAllItems
+        ] as IconQuickPickItem[];
+        picker.busy = false;
+    }, 10);
 }
 
 export function insertRecentIconCommand(context: vscode.ExtensionContext) {
@@ -143,21 +164,18 @@ export function insertRecentIconCommand(context: vscode.ExtensionContext) {
         return;
     }
 
-    const iconItems: IconQuickPickItem[] = recentIcons.map((icon) => ({
-        label: icon.name,
-        description: icon.code,
-        char: icon.char,
-        iconObj: icon,
-        iconPath: {
-            light: getIconUri(icon.char, '#333333'),
-            dark: getIconUri(icon.char, '#CCCCCC')
-        }
-    }));
+    const picker = vscode.window.createQuickPick<IconQuickPickItem>();
+    picker.placeholder = 'Select a recently used icon';
+    picker.matchOnDescription = true;
+    picker.items = recentIcons.map(getCachedIconItem);
 
-    vscode.window
-        .showQuickPick(iconItems, {
-            placeHolder: 'Select a recently used icon',
-            matchOnDescription: true
-        })
-        .then((selection) => handleIconSelection(selection, context));
+    picker.show();
+
+    picker.onDidAccept(() => {
+        const selection = picker.selectedItems[0];
+        handleIconSelection(selection, context);
+        picker.hide();
+    });
+
+    picker.onDidHide(() => picker.dispose());
 }

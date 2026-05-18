@@ -6,7 +6,10 @@
     "lib": ["ES2022"],
     "sourceMap": true,
     "rootDir": "src",
-    "strict": true
+    "strict": true,
+    "skipLibCheck": true,
+    "moduleResolution": "Node16",
+    "types": ["node", "vscode", "mocha"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", ".vscode-test"]

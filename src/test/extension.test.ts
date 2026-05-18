@@ -71,4 +71,16 @@ suite('Nerdy Test Suite', () => {
             'Clipboard should contain the test character'
         );
     });
+
+    test('performance: icon data loading should be fast', () => {
+        const start = Date.now();
+        const iconData = getIconData();
+        const end = Date.now();
+        const duration = end - start;
+        console.log(`Icon data loading took ${duration}ms`);
+        assert.ok(
+            duration < 500,
+            'Icon data loading should take less than 500ms'
+        );
+    });
 });
