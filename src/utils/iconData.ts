@@ -14,7 +14,12 @@ export function getIconData(): Icon[] {
         return cachedIconData;
     }
 
-    const filePath = path.join(__dirname, '../../data/glyphnames.json');
+    // Try both paths to handle both tsc (out/utils/iconData.js) and esbuild (out/extension.js)
+    let filePath = path.join(__dirname, '../../data/glyphnames.json');
+    if (!fs.existsSync(filePath)) {
+        filePath = path.join(__dirname, '../data/glyphnames.json');
+    }
+
     const data = fs.readFileSync(filePath, 'utf-8');
     const jsonData: {[key: string]: {code: string; char: string}} =
         JSON.parse(data);

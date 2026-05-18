@@ -52,7 +52,10 @@ function getIconUri(char: string, color: string): vscode.Uri {
     );
 }
 
-export function updateRecentIcons(context: vscode.ExtensionContext, icon: Icon) {
+export function updateRecentIcons(
+    context: vscode.ExtensionContext,
+    icon: Icon
+) {
     let recentIcons = context.globalState.get<Icon[]>(RECENT_ICONS_KEY, []);
     recentIcons = recentIcons.filter((i) => i.name !== icon.name);
     recentIcons.unshift(icon);

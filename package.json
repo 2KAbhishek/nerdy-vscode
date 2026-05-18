@@ -3,6 +3,13 @@
   "displayName": "Nerdy",
   "description": "Nerd glyph picker for VS Code",
   "version": "1.0.0",
+  "publisher": "2kabhishek",
+  "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/2kabhishek/nerdy-vscode"
+  },
+  "homepage": "https://github.com/2kabhishek/nerdy-vscode",
   "engines": {
     "vscode": "^1.96.0"
   },
@@ -24,13 +31,16 @@
     ]
   },
   "scripts": {
-    "vscode:prepublish": "pnpm run compile",
+    "vscode:prepublish": "pnpm run bundle",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
+    "bundle": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node --minify",
     "pretest": "pnpm run compile && pnpm run lint",
     "lint": "eslint src",
+    "format": "prettier --write .",
     "test": "vscode-test",
-    "update-glyphs": "ts-node scripts/updateGlyphs.ts"
+    "update-glyphs": "ts-node scripts/updateGlyphs.ts",
+    "package": "vsce package"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
@@ -40,6 +50,8 @@
     "@typescript-eslint/parser": "^8.59.3",
     "@vscode/test-cli": "^0.0.12",
     "@vscode/test-electron": "^2.5.2",
+    "@vscode/vsce": "^3.9.1",
+    "esbuild": "^0.28.0",
     "eslint": "^9.39.4",
     "prettier": "^3.8.3",
     "ts-node": "^10.9.2",

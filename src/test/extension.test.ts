@@ -13,7 +13,7 @@ suite('Nerdy Test Suite', () => {
     });
 
     test('commands should be registered', async () => {
-        const extensionId = 'undefined_publisher.nerdy-vscode';
+        const extensionId = '2kabhishek.nerdy-vscode';
         const extension = vscode.extensions.getExtension(extensionId);
         if (extension) {
             await extension.activate();
@@ -30,7 +30,7 @@ suite('Nerdy Test Suite', () => {
     });
 
     test('recent icons state should be manageable', async () => {
-        const extensionId = 'undefined_publisher.nerdy-vscode';
+        const extensionId = '2kabhishek.nerdy-vscode';
         const extension = vscode.extensions.getExtension(extensionId);
         if (!extension) {
             return;
@@ -51,9 +51,8 @@ suite('Nerdy Test Suite', () => {
 
         // Add same icon again - should still be 1
         updateRecentIcons(context, icon);
-        const recentIconsAfterDup = context.globalState.get<Icon[]>(
-            RECENT_ICONS_KEY
-        );
+        const recentIconsAfterDup =
+            context.globalState.get<Icon[]>(RECENT_ICONS_KEY);
         assert.strictEqual(
             recentIconsAfterDup?.length,
             1,
