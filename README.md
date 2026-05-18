@@ -47,6 +47,19 @@ nerdy-vscode is a VS Code extension that allows developers to quickly search and
 - VS Code version 1.96.0 or higher.
 - A Nerd Font installed and configured in VS Code for proper icon rendering.
 
+### 🔡 Recommended Fonts
+
+To see the icons correctly, you **must** have a Nerd Font installed on your system. We recommend:
+
+- **[FiraCode Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FiraCode)** (Highly Recommended)
+- [JetBrainsMono Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/JetBrainsMono)
+- [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Hack)
+
+After installing, make sure to update your VS Code settings:
+```json
+"editor.fontFamily": "'FiraCode Nerd Font', 'FiraCode Nerd Font Mono', monospace"
+```
+
 ### 💻 Installation
 
 #### Marketplace
@@ -71,6 +84,10 @@ If you'd like to run the extension from source:
    code .
    ```
 4. Press `F5` to start a new VS Code window with the extension enabled.
+
+#### Developer Commands
+
+- `pnpm run update-glyphs`: Updates the `glyphnames.json` data file from the official Nerd Fonts repository.
 
 ## 🚀 Usage
 
