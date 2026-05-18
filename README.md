@@ -23,7 +23,7 @@
 <h3>Nerd glyphs for VS Code 🔍🧑‍💻</h3>
 
 <figure>
-  <img src="docs/images/screenshot.png" alt="nerdy-vscode in action">
+  <img src="docs/images/screenshot.jpg" alt="nerdy-vscode in action">
   <br/>
   <figcaption>nerdy-vscode in action</figcaption>
 </figure>
