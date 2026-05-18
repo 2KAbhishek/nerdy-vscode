@@ -36,7 +36,9 @@ nerdy-vscode is a VS Code extension that allows developers to quickly search and
 
 - Search from thousands of Nerd Font icons.
 - Instant insertion into the active editor.
-- High-performance caching of icon data.
+- **Recently Used:** Quick access to your most frequently used icons.
+- **Automatic Clipboard Copy:** Selected icons are automatically copied to your clipboard.
+- **High Performance:** Optimized data caching and SVG rendering for smooth UI.
 
 ## ⚡ Setup
 
@@ -72,21 +74,21 @@ If you'd like to run the extension from source:
 
 ## 🚀 Usage
 
+### Insert Icon
+
 1. Open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P`).
 2. Type **"Nerdy: Insert Icon"** and press Enter.
-3. Search for the icon you want and select it to insert at your cursor position.
+3. Search for the icon you want and select it to insert.
+
+### Insert Recent Icon
+
+1. Open the Command Palette.
+2. Type **"Nerdy: Insert Recent Icon"** and press Enter.
+3. Select from your recently used icons for even faster access.
 
 ## 🏗️ What's Next
 
-- [ ] Implement a "Recently Used" icons section.
-- [ ] Add support for copying to clipboard
-
-### ✅ To-Do
-
-- [x] Basic icon search and insertion.
-- [x] Performance optimization with data caching.
-- [ ] Improved icon previews in QuickPick.
-- [ ] Comprehensive unit and integration tests.
+- You tell me! :)
 
 ## 🧑‍💻 Behind The Code
 
