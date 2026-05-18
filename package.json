@@ -16,6 +16,10 @@
       {
         "command": "nerdy.insertIcon",
         "title": "Nerdy: Insert Icon"
+      },
+      {
+        "command": "nerdy.insertRecentIcon",
+        "title": "Nerdy: Insert Recent Icon"
       }
     ]
   },
