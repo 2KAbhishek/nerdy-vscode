@@ -11,7 +11,7 @@
   },
   "homepage": "https://github.com/2kabhishek/nerdy-vscode",
   "engines": {
-    "vscode": "^1.96.0"
+    "vscode": "^1.110.0"
   },
   "categories": [
     "Utilities"
@@ -44,8 +44,8 @@
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
-    "@types/node": "~20.19.41",
-    "@types/vscode": "^1.120.0",
+    "@types/node": "25.9.0",
+    "@types/vscode": "^1.110.0",
     "@typescript-eslint/eslint-plugin": "^8.59.3",
     "@typescript-eslint/parser": "^8.59.3",
     "@vscode/test-cli": "^0.0.12",
