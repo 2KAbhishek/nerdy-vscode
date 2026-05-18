@@ -1,7 +1,7 @@
 {
   "name": "nerdy-vscode",
-  "displayName": "nerdy-vscode",
-  "description": "Quickly add nerdfont glyphs to your code",
+  "displayName": "Nerdy",
+  "description": "Nerd glyphs for VS Code",
   "version": "1.0.0",
   "engines": {
     "vscode": "^1.96.0"

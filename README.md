@@ -20,7 +20,7 @@
 <a href="https://github.com/2KAbhishek/nerdy-vscode/pulse">
 <img alt="Last Updated" src="https://img.shields.io/github/last-commit/2kabhishek/nerdy-vscode?style=flat&color=e06c75&label="> </a>
 
-<h3>Nerd Font glyphs at your fingertips 🎇🎉</h3>
+<h3>Nerd glyphs for VS Code 🔍🧑‍💻</h3>
 
 <figure>
   <img src="docs/images/screenshot.png" alt="nerdy-vscode in action">
@@ -56,6 +56,7 @@ To see the icons correctly, you **must** have a Nerd Font installed on your syst
 - [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Hack)
 
 After installing, make sure to update your VS Code settings:
+
 ```json
 "editor.fontFamily": "'FiraCode Nerd Font', 'FiraCode Nerd Font Mono', monospace"
 ```
