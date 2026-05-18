@@ -1,6 +1,6 @@
 <div align = "center">
 
-<h1><a href="https://github.com/2kabhishek/nerdy-vscode">nerdy-vscode</a></h1>
+<h1><a href="https://marketplace.visualstudio.com/items?itemName=2kabhishek.nerdy-vscode">nerdy-vscode</a></h1>
 
 <a href="https://github.com/2KAbhishek/nerdy-vscode/blob/main/LICENSE">
 <img alt="License" src="https://img.shields.io/github/license/2kabhishek/nerdy-vscode?style=flat&color=eee&label="> </a>
