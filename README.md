@@ -20,7 +20,7 @@
 <a href="https://github.com/2KAbhishek/nerdy-vscode/pulse">
 <img alt="Last Updated" src="https://img.shields.io/github/last-commit/2kabhishek/nerdy-vscode?style=flat&color=e06c75&label="> </a>
 
-<h3>Nerd glyphs for VS Code 🔍🧑‍💻</h3>
+<h3>Nerd glyph picker for VS Code 🔍🧑‍💻</h3>
 
 <figure>
   <img src="docs/images/screenshot.jpg" alt="nerdy-vscode in action">
